@@ -66,8 +66,8 @@ class Calculate:
         excluded_numbers = set()
         for j in range(81):
             if self.same_row(i,j) or self.same_col(i,j) or self.same_block(i,j):
-                excluded_numbers.add(a[j])
-
+                if a[j] != 0:
+                    excluded_numbers.add(a[j])
         for m in '123456789':
             if m not in excluded_numbers:
                 if self.done:
