@@ -12,9 +12,9 @@ import sys
 import os
 import platform
 
-import PySide
-from PySide import QtCore 
-from PySide import QtGui 
+import PyQt4
+from PyQt4 import QtCore 
+from PyQt4 import QtGui 
 
 import qrc_sudoku
 
@@ -46,7 +46,7 @@ class Calculate:
 
     def r(self, a):
         self.loop += 1
-        if self.answer == 1 and self.loop > 100000:
+        if self.answer == 1 and self.loop > 120000:
             self.done = True
 
         i = a.find('0')
@@ -66,7 +66,7 @@ class Calculate:
         excluded_numbers = set()
         for j in range(81):
             if self.same_row(i,j) or self.same_col(i,j) or self.same_block(i,j):
-                if a[j] != 0:
+                if a[j] != '0':
                     excluded_numbers.add(a[j])
         for m in '123456789':
             if m not in excluded_numbers:
@@ -367,7 +367,8 @@ class Sudoku(QtGui.QMainWindow):
     def sudokuSolve(self):
         print "sudok solve"
         self.renderArea.updateLast()
-        self.cal.r(self.renderArea.str)
+        init_code = str(self.renderArea.str)
+        self.cal.r(init_code)
         self.renderArea.str = self.cal.str1
             
         self.renderArea.update()
